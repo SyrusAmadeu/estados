@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Entity
@@ -22,8 +24,9 @@ public class Cidade {
 	private String nome;
 	
 	@Column(name = "cid_populacao")
-	private int populacao;
+	private Integer populacao;
 	
+	@JsonBackReference
 	@ManyToOne
 	private Estado estado;
 }

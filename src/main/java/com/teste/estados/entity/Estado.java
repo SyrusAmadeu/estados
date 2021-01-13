@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.Data;
 
 @Entity
@@ -24,6 +26,7 @@ public class Estado {
 	@Column(name = "est_nome")
 	private String nome;
 
+	@JsonBackReference
 	@OneToMany(mappedBy = "estado", cascade = CascadeType.ALL)
 	private List<Cidade> cidades;
 }
