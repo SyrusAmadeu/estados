@@ -42,7 +42,7 @@ public class CidadeController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Cidade inserida.") })
 
 	@PostMapping
-	public ResponseEntity<Cidade> addEmployee(@RequestBody Cidade newCidade) throws NullFieldsException {
+	public ResponseEntity<Cidade> addCidade(@RequestBody Cidade newCidade) throws NullFieldsException {
 		Cidade addCidade = service.addCidade(newCidade);
 		return new ResponseEntity<Cidade>(addCidade, HttpStatus.CREATED);
 	}
@@ -52,7 +52,7 @@ public class CidadeController {
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cidade> findEmployee(@PathVariable Long id) {
+	public ResponseEntity<Cidade> findCidade(@PathVariable Long id) {
 		Cidade findCidade = service.findCidade(id);
 		return new ResponseEntity<Cidade>(findCidade, HttpStatus.OK);
 	}
@@ -63,7 +63,7 @@ public class CidadeController {
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Cidade> updateEmployee(@RequestBody Cidade newCidade, @PathVariable Long id) {
+	public ResponseEntity<Cidade> updateCidade(@RequestBody Cidade newCidade, @PathVariable Long id) {
 		Cidade updateCidade = service.updateCidade(newCidade, id);
 		return new ResponseEntity<Cidade>(updateCidade, HttpStatus.CREATED);
 	}
