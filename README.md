@@ -22,7 +22,7 @@ A documentação pode ser encontrada em http://localhos:8080/swagger-ui.html
 
 Agora basta ir a pasta raiz do projeto e digitar os comandos
 >mvn clean install
->java -jar target/estados-0.0.1-SNAPSHOT.jar
+>java -jar target/estados-0.0.1.jar
 
 Após isso, é hora de acessar o frontend
 https://github.com/SyrusAmadeu/estados-angular

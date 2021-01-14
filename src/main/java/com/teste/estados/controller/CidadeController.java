@@ -23,7 +23,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 @RestController
-@RequestMapping(value = "/estados/cidades")
+@RequestMapping(value = "/estados/{id}/cidades")
 public class CidadeController {
 
 	@Autowired
@@ -51,7 +51,7 @@ public class CidadeController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Cidade recuperada."),
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
-	@GetMapping("/{id}")
+	@GetMapping("/{id1}")
 	public ResponseEntity<Cidade> findCidade(@PathVariable Long id) {
 		Cidade findCidade = service.findCidade(id);
 		return new ResponseEntity<Cidade>(findCidade, HttpStatus.OK);
@@ -62,7 +62,7 @@ public class CidadeController {
 			@ApiResponse(code = 400, message = "BAD_REQUEST Campos necessários estão vazios."),
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
-	@PutMapping("/{id}")
+	@PutMapping("/{id1}")
 	public ResponseEntity<Cidade> updateCidade(@RequestBody Cidade newCidade, @PathVariable Long id) {
 		Cidade updateCidade = service.updateCidade(newCidade, id);
 		return new ResponseEntity<Cidade>(updateCidade, HttpStatus.CREATED);
@@ -72,7 +72,7 @@ public class CidadeController {
 	@ApiResponses({ @ApiResponse(code = 204, message = "Cidade remoida com sucesso"),
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/{id1}")
 	public ResponseEntity<Void> deleteCidade(@PathVariable Long id) {
 		service.deleteCidade(id);
 		return ResponseEntity.noContent().build();
