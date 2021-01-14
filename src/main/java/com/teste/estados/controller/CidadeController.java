@@ -1,6 +1,6 @@
 package com.teste.estados.controller;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,9 +32,9 @@ public class CidadeController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Cidades retornadas com sucesso.") })
 
 	@GetMapping
-	public ResponseEntity<List<Cidade>> findAll() {
-		List<Cidade> findAll = service.findAll();
-		return new ResponseEntity<List<Cidade>>(findAll, HttpStatus.OK);
+	public ResponseEntity<Collection<Cidade>> findAll(@PathVariable(name = "id", required = true) Long id) {
+		Collection<Cidade> findAll = service.findAll(id);
+		return new ResponseEntity<Collection<Cidade>>(findAll, HttpStatus.OK);
 	}
 
 	@ApiOperation("Insere uma cidade.")
@@ -57,24 +56,13 @@ public class CidadeController {
 		return new ResponseEntity<Cidade>(findCidade, HttpStatus.OK);
 	}
 
-	@ApiOperation("Atualiza cidade pelo seu id")
-	@ApiResponses({ @ApiResponse(code = 200, message = "Cidade atualizada."),
-			@ApiResponse(code = 400, message = "BAD_REQUEST Campos necessários estão vazios."),
-			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
-
-	@PutMapping("/{id1}")
-	public ResponseEntity<Cidade> updateCidade(@RequestBody Cidade newCidade, @PathVariable Long id) {
-		Cidade updateCidade = service.updateCidade(newCidade, id);
-		return new ResponseEntity<Cidade>(updateCidade, HttpStatus.CREATED);
-	}
-
 	@ApiOperation("Remove cidade pelo id")
 	@ApiResponses({ @ApiResponse(code = 204, message = "Cidade remoida com sucesso"),
 			@ApiResponse(code = 404, message = "Cidade não encontrada.") })
 
 	@DeleteMapping("/{id1}")
-	public ResponseEntity<Void> deleteCidade(@PathVariable Long id) {
-		service.deleteCidade(id);
+	public ResponseEntity<Void> deleteCidade(@PathVariable(name = "id", required = true) Long idEstado ,@PathVariable(name = "id1", required = true) Long idCidade) {
+		service.deleteCidade(idEstado, idCidade);
 		return ResponseEntity.noContent().build();
 	}
 }

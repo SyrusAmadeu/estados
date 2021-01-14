@@ -1,6 +1,6 @@
 package com.teste.estados.service;
 
-import java.util.List;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.teste.estados.entity.Cidade;
 import com.teste.estados.exceptions.CidadeNotFoundException;
 import com.teste.estados.repository.CidadeRepository;
+import com.teste.estados.repository.EstadoRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,9 +21,13 @@ public class CidadeService {
 	@Autowired
 	private CidadeRepository repository;
 
-	public List<Cidade> findAll() {
+	@Autowired
+	private EstadoRepository estRepository;
+
+	public Collection<Cidade> findAll(Long id) {
 		log.info("Listando Cidades");
-		return repository.findAll();
+
+		return estRepository.findAllCidades(id);
 	}
 
 	public Cidade addCidade(Cidade newCidade) {
@@ -35,23 +40,17 @@ public class CidadeService {
 		return repository.findById(id).orElseThrow(() -> new CidadeNotFoundException());
 	}
 
-	public Cidade updateCidade(Cidade newCidade, Long id) throws CidadeNotFoundException {
-		return repository.findById(id).map(Cidade -> {
-
-			return repository.save(Cidade);
-		}).orElseThrow(() -> new CidadeNotFoundException());
-	}
-
-	public void deleteCidade(Long id) throws CidadeNotFoundException {
-		Cidade cidade = findCidade(id);
-		if (cidade == null) {
-			log.error("Cidade " + id + " não encontrada");
+	public void deleteCidade(Long idEstado, Long idCidade) throws CidadeNotFoundException {
+		Cidade cidade = findCidade(idCidade);
+		if (idEstado == null) {
+			log.error("Cidade " + idCidade + " não encontrada");
 			throw new CidadeNotFoundException();
-		} else if (cidade.getEstado().getId() == 1) {
-			System.out.println("Não pode");
+		} else if (idEstado == 1) {
+			System.out.println("Não é possível remover cidades do Rio Grande do Sul");
 		} else {
-			repository.deleteById(id);
+			repository.deleteById(idCidade);
 			log.info(cidade.getNome() + " deletada com sucesso");
 		}
+
 	}
 }
