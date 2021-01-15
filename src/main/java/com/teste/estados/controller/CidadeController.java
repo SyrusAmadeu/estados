@@ -41,8 +41,8 @@ public class CidadeController {
 	@ApiResponses({ @ApiResponse(code = 200, message = "Cidade inserida.") })
 
 	@PostMapping
-	public ResponseEntity<Cidade> addCidade(@RequestBody Cidade newCidade) throws NullFieldsException {
-		Cidade addCidade = service.addCidade(newCidade);
+	public ResponseEntity<Cidade> addCidade(@RequestBody Cidade newCidade, @PathVariable(name = "id", required = true) Long idEstado) throws NullFieldsException {
+		Cidade addCidade = service.addCidade(newCidade, idEstado);
 		return new ResponseEntity<Cidade>(addCidade, HttpStatus.CREATED);
 	}
 
